@@ -1,2 +1,4 @@
 import './slider';
-console.log(1);
+import modals from './modules/modal';
+
+modals();

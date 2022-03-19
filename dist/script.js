@@ -14010,8 +14010,60 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./slider */ "./src/js/slider.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
 
-console.log(1);
+
+Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["default"])();
+
+/***/ }),
+
+/***/ "./src/js/modules/modal.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/modal.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const modals = () => {
+  const headerBtn = document.querySelector('.header_btn'),
+        modalPopupEngineer = document.querySelector('.popup_engineer'),
+        closeModalBtn = document.querySelectorAll('.popup_close'),
+        contactUsWrap = document.querySelector('.contact_us_wrap'),
+        modalPopup = document.querySelector('.popup');
+  closeModalBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modalPopupEngineer.style.display = 'none';
+      modalPopup.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+  });
+
+  function showModal(modalTriger, modalBock) {
+    modalTriger.addEventListener('click', e => {
+      e.preventDefault();
+      modalBock.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  function closeModal(modalSelector) {
+    modalSelector.addEventListener('click', e => {
+      if (e.target === modalSelector) {
+        modalSelector.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  showModal(headerBtn, modalPopupEngineer);
+  showModal(contactUsWrap, modalPopup);
+  closeModal(modalPopup);
+  closeModal(modalPopupEngineer);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (modals);
 
 /***/ }),
 
