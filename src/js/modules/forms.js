@@ -1,21 +1,21 @@
-const forms = () => {
+import checkNumImputs from "./checkNumImputs";
+
+
+const forms = (state) => {
 
     const forms = document.querySelectorAll('.form'),
-        inputs = document.querySelectorAll('input'),
-        phoneInputs = document.querySelectorAll('input[name="user_phone"]');
+        inputs = document.querySelectorAll('input');
 
-    
-    phoneInputs.forEach(item => {
-        item.addEventListener('input', () => {
-           item.value = item.value.replace(/\D/, '');
-        }); 
-    });
+
+    checkNumImputs('input[name="user_phone"]');
+
     
     const message = {
         loading: 'Загрузка...',
         success: "Спасибо. Мы скоро с вами свяжемя",
         failure: 'Что то пошло не так'        
     };
+
 
     const postData = async (url, data) => {
         
@@ -44,6 +44,11 @@ const forms = () => {
             item.appendChild(statusMessage);
 
             const formData = new FormData(item);
+            if (item.getAttribute('data-calc') === 'end') {
+                for (let key in state) {
+                    formData.append(key, state[key]);
+                }
+            }
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
             // console.log(json);
             postData('http://localhost:3000/requests', json).then(data => {
