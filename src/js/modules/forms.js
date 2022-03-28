@@ -46,11 +46,12 @@ const forms = (state) => {
             const formData = new FormData(item);
             if (item.getAttribute('data-calc') === 'end') {
                 for (let key in state) {
-                    formData.append(key, state[key]);
+                    formData.append(key, state[key]); // в formdata є свій метод append який можна використати для додавання нових значеннь
                 }
+
             }
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
-            // console.log(json);
+
             postData('http://localhost:3000/requests', json).then(data => {
                 console.log(data);
                 statusMessage.textContent = message.success;
@@ -64,7 +65,19 @@ const forms = (state) => {
                         statusMessage.remove();
                     }, 3000);
                 });
-        }); 
+            
+            
+            setTimeout(() => { // це функція щоб автоматичнр закривалось вікно форми після відправки
+                    document.querySelectorAll('[data-modal]').forEach(item => {
+                    item.style.display = 'none'; 
+                    });
+               
+                    document.querySelector('.popup_calc_end').style.display = 'none';
+                    document.body.style.overflow = '';
+                    // console.log('мало б закритись вікно');
+            }, 3000);
+        });
+        
     });
 
 
